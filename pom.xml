@@ -20,6 +20,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<docker.image.prefix>yisasthemanuel</docker.image.prefix>
 		<spring-cloud.version>Hoxton.SR1</spring-cloud.version>		
+		<org.jlobato.gpro>1.1.0.RELEASE</org.jlobato.gpro>
 	</properties>
 
 	<dependencies>
