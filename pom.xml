@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.jlobato.gpro</groupId>
 	<artifactId>gproresultsapi</artifactId>
-	<version>1.0.0.RELEASE</version>
+	<version>1.1.0.RELEASE</version>
 	<packaging>jar</packaging>
 	<name>gproresultsapi</name>
 	<description>Microservice for GPRO results</description>
@@ -20,7 +20,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<docker.image.prefix>yisasthemanuel</docker.image.prefix>
 		<spring-cloud.version>Hoxton.SR1</spring-cloud.version>		
-		<gpro-mybatis.version>1.1.0.RELEASE</gpro-mybatis.version>		
+		<gpro-mybatis.version>1.1.1.RELEASE</gpro-mybatis.version>		
 	</properties>
 
 	<dependencies>
