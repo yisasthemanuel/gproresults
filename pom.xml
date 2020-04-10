@@ -20,6 +20,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<docker.image.prefix>yisasthemanuel</docker.image.prefix>
 		<spring-cloud.version>Hoxton.SR1</spring-cloud.version>		
+		<gpro-mybatis.version>1.1.0.RELEASE</gpro-mybatis.version>		
 	</properties>
 
 	<dependencies>
@@ -59,7 +60,7 @@
 		<dependency>
 	    	<groupId>org.jlobato.gpro</groupId>
 	    	<artifactId>gpro-mybatis</artifactId>
-	    	<version>0.0.1.2</version>
+	    	<version>${gpro-mybatis.version}</version>
 		</dependency>
 		
 		<!--c3p0 0.9.1.2 connection pool -->

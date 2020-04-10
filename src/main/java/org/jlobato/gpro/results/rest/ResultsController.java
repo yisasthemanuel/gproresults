@@ -4,17 +4,23 @@ import java.util.List;
 
 import org.jlobato.gpro.results.service.IManagerService;
 import org.jlobato.gpro.xbean.Manager;
+import org.jlobato.gpro.xbean.results.ManagerResult;
 import org.jlobato.gpro.xbean.results.ManagerResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * The Class ResultsController.
+ */
 @RestController
 @RequestMapping("/managers")
 @CrossOrigin
@@ -27,14 +33,23 @@ public class ResultsController {
 	@Autowired
 	private IManagerService service;
 
-	@RequestMapping(method = RequestMethod.GET)
+	/**
+	 * Find all.
+	 *
+	 * @return the list
+	 */
+	@GetMapping
 	@ResponseBody
 	public List<Manager> findAll() {
-		//TODO Tirar del servicio correcto
 		return service.findAll();
 	}
 	
-	@RequestMapping(value = "/results", method = RequestMethod.PUT)
+	/**
+	 * Update.
+	 *
+	 * @param resource the resource
+	 */
+	@PutMapping(value = "/results")
 	@ResponseStatus(HttpStatus.OK)
 	public void update(@RequestBody ManagerResults resource) {
 		//TODO Utilizar precondiciones Guava. Luego cambiar a precondiciones de la 1.8
@@ -42,6 +57,23 @@ public class ResultsController {
 		//Preconditions.checkNotNull(resource);
 		//RestPreconditions.checkNotNull(service.getById(resource.getId()));
 		service.putResults(resource);
+	}
+	
+	/**
+	 * Gets the results.
+	 *
+	 * @param season the season
+	 * @param race the race
+	 * @return the results
+	 */
+	@GetMapping(value = "results/{season}/{race}")
+	@ResponseBody
+	public List<ManagerResult> getResults(@PathVariable String season, @PathVariable String race) {
+		//TODO Utilizar precondiciones Guava. Luego cambiar a precondiciones de la 1.8
+		//TODO Utilizar RestPreconditions (baeldung)
+		//Preconditions.checkNotNull(resource);
+		//RestPreconditions.checkNotNull(service.getById(resource.getId()));
+		return service.getResults(season, race);
 	}
 	
 
