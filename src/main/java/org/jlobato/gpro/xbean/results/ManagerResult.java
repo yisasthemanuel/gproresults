@@ -123,9 +123,8 @@ public class ManagerResult implements Serializable {
 		 * @param codeManager the code manager
 		 * @param racePosition the race position
 		 */
-		public ManagerResultBuilder(String codeManager, Integer racePosition) {
+		public ManagerResultBuilder(String codeManager) {
 			this.codeManager = codeManager;
-			this.racePosition = racePosition;
 		}
 		
 		/**

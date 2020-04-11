@@ -3,7 +3,6 @@ package org.jlobato.gpro.xbean.results;
 import java.io.Serializable;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ManagerResults.
  */
@@ -18,13 +17,13 @@ public class ManagerResults implements Serializable {
 	}
 
 	/** The id season. */
-	protected short idSeason;
+	private short idSeason;
 	
 	/** The id race. */
-	protected short idRace;
+	private short idRace;
 	
 	/** The results. */
-	protected List<ManagerResult> results;
+	private List<ManagerResult> results;
 
 	/**
 	 * Gets the id season.

@@ -95,19 +95,18 @@ public class ManagerService implements IManagerService {
 		
 		lista.forEach(manager -> {
 			org.jlobato.gpro.dao.mybatis.model.ManagerResult resultado = resultsRepository.findManagerResult(manager, race);
+			ManagerResult.ManagerResultBuilder builder = new ManagerResult.ManagerResultBuilder(manager.getCodeManager());
 			if (resultado != null) {
-				ManagerResult.ManagerResultBuilder builder = new ManagerResult.ManagerResultBuilder(manager.getCodeManager(), Integer.valueOf(resultado.getRacePosition()));
 				if (resultado.getGridPosition() != null) {
 					builder.gridPosition(Integer.valueOf(resultado.getGridPosition()));
 				}
-//				else {
-//					builder.gridPosition(-1);
-//				}
-				result.add(builder.build());
+				if (resultado.getRacePosition() != null ) {
+					builder.racePosition(Integer.valueOf(resultado.getRacePosition()));
+				}
 			}
+			result.add(builder.build());
 		});
 		
 		return result;
 	}
-
 }
