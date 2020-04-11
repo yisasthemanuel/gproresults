@@ -75,33 +75,4 @@ public class ResultsController {
 		//RestPreconditions.checkNotNull(service.getById(resource.getId()));
 		return service.getResults(season, race);
 	}
-	
-
-/*	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public Foo findOne(@PathVariable("id") Long id) {
-		return RestPreconditions.checkFound(service.findOne(id));
-	}
-
-	@RequestMapping(method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	@ResponseBody
-	public Long create(@RequestBody Foo resource) {
-		Preconditions.checkNotNull(resource);
-		return service.create(resource);
-	}
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	@ResponseStatus(HttpStatus.OK)
-	public void update(@PathVariable("id") Long id, @RequestBody Foo resource) {
-		Preconditions.checkNotNull(resource);
-		RestPreconditions.checkNotNull(service.getById(resource.getId()));
-		service.update(resource);
-	}
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	@ResponseStatus(HttpStatus.OK)
-	public void delete(@PathVariable("id") Long id) {
-		service.deleteById(id);
-	}*/
 }
