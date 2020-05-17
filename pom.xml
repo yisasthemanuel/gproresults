@@ -20,7 +20,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<docker.image.prefix>yisasthemanuel</docker.image.prefix>
 		<spring-cloud.version>Hoxton.SR1</spring-cloud.version>		
-		<gpro-mybatis.version>1.1.1.RELEASE</gpro-mybatis.version>		
+		<gpro-mybatis.version>1.1.2.RELEASE</gpro-mybatis.version>		
 	</properties>
 
 	<dependencies>
