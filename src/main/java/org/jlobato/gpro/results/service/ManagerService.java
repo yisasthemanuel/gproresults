@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.jlobato.gpro.dao.mybatis.facade.FachadaManager;
 import org.jlobato.gpro.dao.mybatis.facade.FachadaManagerResult;
-import org.jlobato.gpro.dao.mybatis.facade.FachadaSeason;
 import org.jlobato.gpro.dao.mybatis.facade.FachadaTeam;
 import org.jlobato.gpro.dao.mybatis.model.Race;
 import org.jlobato.gpro.xbean.Manager;
@@ -31,10 +30,6 @@ public class ManagerService implements IManagerService {
 	@Autowired
 	private FachadaManagerResult resultsRepository;
 	
-	/** The season repository. */
-	@Autowired
-	private FachadaSeason seasonRepository;
-
 	/** The team repository. */
 	@Autowired
 	private FachadaTeam teamRepository;
@@ -64,7 +59,9 @@ public class ManagerService implements IManagerService {
 	 */
 	@Override
 	public void putResults(ManagerResults results) {
-		Race race = seasonRepository.getRace(results.getIdSeason(), results.getIdRace());
+		Race race = new Race();
+		race.withIdRace(results.getIdRace()).withIdSeason(results.getIdSeason());
+		
 		for (Iterator<ManagerResult> managerResults = results.getResults().iterator(); managerResults.hasNext();) {
 			ManagerResult managerResult = managerResults.next();
 			org.jlobato.gpro.dao.mybatis.model.Manager manager = managerRepository.getManagerByCode(managerResult.getCodeManager());

@@ -29,6 +29,10 @@ public class Manager implements Serializable {
 		this.nameManager = nameManager;
 	}
 	
+	public Manager() {
+		
+	}
+	
 	/**
 	 * Gets the code manager.
 	 *
