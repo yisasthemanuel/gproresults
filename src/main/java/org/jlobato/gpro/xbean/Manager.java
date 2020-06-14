@@ -2,9 +2,38 @@ package org.jlobato.gpro.xbean;
 
 import java.io.Serializable;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * The Class Manager.
  */
+
+/**
+ * To string.
+ *
+ * @return the java.lang. string
+ */
+@ToString
+
+/** The Constant log. */
+@Slf4j
+
+/**
+ * Gets the name manager.
+ *
+ * @return the name manager
+ */
+@Getter
+
+/**
+ * Sets the name manager.
+ *
+ * @param nameManager the new name manager
+ */
+@Setter
 public class Manager implements Serializable {
 	
 	/** The Constant serialVersionUID. */
@@ -27,46 +56,14 @@ public class Manager implements Serializable {
 		super();
 		this.codeManager = codeManager;
 		this.nameManager = nameManager;
+		log.debug("New Manager({})", this);
 	}
 	
+	/**
+	 * Instantiates a new manager.
+	 */
 	public Manager() {
-		
+		super();
 	}
 	
-	/**
-	 * Gets the code manager.
-	 *
-	 * @return the code manager
-	 */
-	public String getCodeManager() {
-		return codeManager;
-	}
-	
-	/**
-	 * Sets the code manager.
-	 *
-	 * @param codeManager the new code manager
-	 */
-	public void setCodeManager(String codeManager) {
-		this.codeManager = codeManager;
-	}
-	
-	/**
-	 * Gets the name manager.
-	 *
-	 * @return the name manager
-	 */
-	public String getNameManager() {
-		return nameManager;
-	}
-	
-	/**
-	 * Sets the name manager.
-	 *
-	 * @param nameManager the new name manager
-	 */
-	public void setNameManager(String nameManager) {
-		this.nameManager = nameManager;
-	}
-
 }

@@ -35,7 +35,7 @@ Se deben tener las siguientes variables de entorno para poder arrancar la aplica
 
 ### Banner de arranque
 
-** Banner generado con la fuente alligator2 (https://devops.datenkollektiv.de/banner.txt/index.html)
+* Banner generado con la fuente alligator2 (https://devops.datenkollektiv.de/banner.txt/index.html)
 
 
 ### Ejecución en desarrollo
@@ -55,6 +55,7 @@ $ ./mvnw spring-boot:run
 El dockerfile incluye las mismas variables de entorno para poder configurar el endpoint de Eureka
 
 * EUREKA_URI -> <http://localhost:8761/eureka>
+* CONFIG_SERVER -> <http://localhost:8888>
 
 ### Construcción de imagen Docker
 
@@ -70,7 +71,7 @@ $ ./mvnw clean package
 ### Ejecución de la imagen
 
 ```shell
-docker run -d -e EUREKA_URI=http://host.docker.internal:8761/eureka -p 9080:8080 --name yisas-gproresults yisasthemanuel/gproresultsapi
+docker run -d -e EUREKA_URI=http://host.docker.internal:8761/eureka -e CONFIG_SERVER=http://host.docker.internal:8888 -e SPRING_PROFILES_ACTIVE=development -p 9080:8080 --name yisas-gproresults yisasthemanuel/gproresultsapi
 ```
 
 ## TO DOs
