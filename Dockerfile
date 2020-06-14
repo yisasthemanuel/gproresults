@@ -1,4 +1,4 @@
-FROM frolvlad/alpine-java:jdk8-slim
+FROM adoptopenjdk/openjdk11-openj9:alpine-jre
 
 MAINTAINER yisasthemanuel@gmail.com
 
