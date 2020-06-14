@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.jlobato.gpro</groupId>
 	<artifactId>gproresultsapi</artifactId>
-	<version>1.3.0.RELEASE</version>
+	<version>1.3.1.RELEASE</version>
 	<packaging>jar</packaging>
 	<name>gproresultsapi</name>
 	<description>Microservice for GPRO results</description>
