@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -75,4 +76,20 @@ public class ResultsController {
 		//RestPreconditions.checkNotNull(service.getById(resource.getId()));
 		return service.getResults(season, race);
 	}
+	
+	/**
+	 * Update.
+	 *
+	 * @param resource the resource
+	 */
+	@PutMapping(value = "/update-position/{season}/{codeManager}")
+	@ResponseStatus(HttpStatus.OK)
+	public void updateManagerPosition(@PathVariable String season, @PathVariable String codeManager, @RequestParam Integer position) {
+		//TODO Utilizar precondiciones Guava. Luego cambiar a precondiciones de la 1.8
+		//TODO Utilizar RestPreconditions (baeldung)
+		//Preconditions.checkNotNull(resource);
+		//RestPreconditions.checkNotNull(service.getById(resource.getId()));
+		service.updateManagerPosition(season, codeManager, position);
+	}
+	
 }

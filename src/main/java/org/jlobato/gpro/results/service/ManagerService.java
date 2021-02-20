@@ -7,6 +7,7 @@ import java.util.List;
 import org.jlobato.gpro.dao.mybatis.facade.FachadaManager;
 import org.jlobato.gpro.dao.mybatis.facade.FachadaManagerResult;
 import org.jlobato.gpro.dao.mybatis.facade.FachadaTeam;
+import org.jlobato.gpro.dao.mybatis.model.ManagerHistory;
 import org.jlobato.gpro.dao.mybatis.model.Race;
 import org.jlobato.gpro.xbean.Manager;
 import org.jlobato.gpro.xbean.results.ManagerResult;
@@ -105,5 +106,25 @@ public class ManagerService implements IManagerService {
 		});
 		
 		return result;
+	}
+
+
+	/**
+	 * Update manager position.
+	 *
+	 * @param idSeason the id season
+	 * @param codeManager the code manager
+	 * @param seasonPosition the season position
+	 */
+	@Override
+	public void updateManagerPosition(String idSeason, String codeManager, Integer seasonPosition) {
+		Short idManager = managerRepository.getManagerByCode(codeManager).getIdManager();
+		List<ManagerHistory> currentManagerHistory = managerRepository.getManagerHistory(idManager, Short.valueOf(idSeason));
+		currentManagerHistory.forEach(managerHistory -> {
+			//Actualizamos posición
+			managerHistory.setPosition(seasonPosition.shortValue());
+			//Persistimos
+			managerRepository.updateManagerHistory(managerHistory);
+		});
 	}
 }

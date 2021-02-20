@@ -19,18 +19,30 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
-
+/**
+ * The Class GproResultsApiRestControllerTest.
+ */
 public class GproResultsApiRestControllerTest extends GproResultsApiRestControllerAbstractTest {
 	
+	/** The Constant logger. */
 	private static final Logger logger = LoggerFactory.getLogger(GproResultsApiRestControllerTest.class);
 
 
+	/**
+	 * Sets the up.
+	 */
 	@Override
 	@Before
 	public void setUp() {
 		super.setUp();
 	}
 
+	/**
+	 * Gets the managers list.
+	 *
+	 * @return the managers list
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void getManagersList() throws Exception {
 		String uri = "/managers";
@@ -45,9 +57,15 @@ public class GproResultsApiRestControllerTest extends GproResultsApiRestControll
 		
 		logger.debug(managerList.toString());
 		
-		assertThat(managerList.size()).isGreaterThan(0);
+		assertThat(managerList.size()).isPositive();
 	}
 	
+	/**
+	 * Gets the results.
+	 *
+	 * @return the results
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void getResults() throws Exception {
 		String uri = "/managers/results/74/12";
@@ -77,6 +95,11 @@ public class GproResultsApiRestControllerTest extends GproResultsApiRestControll
 		
 	}
 	
+	/**
+	 * Update results.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void updateResults() throws Exception {
 		String idSeason = "52";
@@ -123,7 +146,7 @@ public class GproResultsApiRestControllerTest extends GproResultsApiRestControll
 		logger.debug(resultsList.toString());
 		
 		//Hay datos
-		assertThat(resultsList.size()).isGreaterThan(0);
+		assertThat(resultsList.size()).isPositive();
 		
 		//Comprobamos ciertos datos
 		assertThat(resultsList.get(5).getCodeManager()).isEqualTo("JESUS");
@@ -132,6 +155,25 @@ public class GproResultsApiRestControllerTest extends GproResultsApiRestControll
 		
 		assertThat(resultsList.get(3).getCodeManager()).isEqualTo("PABLO");
 		assertThat(resultsList.get(3).getGridPosition()).isNull();
+	}
+	
+	/**
+	 * Update manager position.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void updateManagerPosition() throws Exception {
+		String idSeason = "80";
+		String codeManager = "MIKKO";
+		
+		String uri = "/managers/update-position/" + idSeason + "/" + codeManager;
+		
+		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri).param("position", "39")).andReturn();
+		
+		//Devuelve OK
+		int status = mvcResult.getResponse().getStatus();
+		assertThat(status).isEqualTo(200);
 	}
 
 }

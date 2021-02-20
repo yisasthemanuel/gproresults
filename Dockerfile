@@ -1,6 +1,6 @@
 FROM adoptopenjdk/openjdk11-openj9:alpine-jre
 
-MAINTAINER yisasthemanuel@gmail.com
+LABEL maintainer="yisasthemanuel@gmail.com"
 
 RUN apk --update add \
     fontconfig \

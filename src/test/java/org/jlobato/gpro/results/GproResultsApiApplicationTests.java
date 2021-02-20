@@ -53,6 +53,9 @@ public class GproResultsApiApplicationTests {
 		assertThat(resultados.get(8).getRacePosition()).isEqualTo(27);
 	}
 	
+	/**
+	 * When find all then return find all.
+	 */
 	@Test
 	public void whenFindAll_thenReturnFindAll( ) {
 		//Entonces

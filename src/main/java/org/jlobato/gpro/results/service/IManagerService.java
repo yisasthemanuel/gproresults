@@ -35,5 +35,14 @@ public interface IManagerService {
 	 * @return the results
 	 */
 	public List<ManagerResult> getResults(String idSeason, String idRace);
+	
+	/**
+	 * Update manager position.
+	 *
+	 * @param idSeason the id season
+	 * @param codeManager the code manager
+	 * @param seasonPosition the season position
+	 */
+	public void updateManagerPosition(String idSeason, String codeManager, Integer seasonPosition);
 
 }
