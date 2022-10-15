@@ -1,0 +1,2 @@
+#Update Manager Group Position in a season
+curl -v -X PUT http://localhost:9080/managers/update-position/80/GEOFF?position=8
