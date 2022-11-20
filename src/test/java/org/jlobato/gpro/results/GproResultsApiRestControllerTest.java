@@ -3,7 +3,9 @@ package org.jlobato.gpro.results;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.jlobato.gpro.xbean.Manager;
@@ -11,9 +13,13 @@ import org.jlobato.gpro.xbean.results.ManagerResult;
 import org.jlobato.gpro.xbean.results.ManagerResults;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -22,6 +28,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 /**
  * The Class GproResultsApiRestControllerTest.
  */
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class GproResultsApiRestControllerTest extends GproResultsApiRestControllerAbstractTest {
 	
 	/** The Constant logger. */
@@ -50,7 +58,7 @@ public class GproResultsApiRestControllerTest extends GproResultsApiRestControll
 				.andReturn();
 
 		int status = mvcResult.getResponse().getStatus();
-		assertThat(status).isEqualTo(200);
+		assertThat(status).isEqualTo(HttpStatus.OK.value());
 		String content = mvcResult.getResponse().getContentAsString();
 		List<Manager> managerList = super.mapFromJsonReference(content, new TypeReference<List<Manager>>() {});
 		assertThat(managerList).isNotNull();
@@ -73,7 +81,7 @@ public class GproResultsApiRestControllerTest extends GproResultsApiRestControll
 				.andReturn();
 
 		int status = mvcResult.getResponse().getStatus();
-		assertThat(status).isEqualTo(200);
+		assertThat(status).isEqualTo(HttpStatus.OK.value());
 		
 		String content = mvcResult.getResponse().getContentAsString();
 		List<ManagerResult> resultsList = mapFromJsonReference(content, new TypeReference<List<ManagerResult>>() {});
@@ -84,13 +92,13 @@ public class GproResultsApiRestControllerTest extends GproResultsApiRestControll
 		
 		logger.debug(resultsList.toString());
 		
-		assertThat(resultsList.get(0).getCodeManager()).isEqualTo("NEVZA");
+		assertThat(resultsList.get(0).getCodeManager()).isEqualTo(NEVZA);
 		assertThat(resultsList.get(0).getRacePosition()).isEqualTo(4);
 		
-		assertThat(resultsList.get(8).getCodeManager()).isEqualTo("JESUS");
+		assertThat(resultsList.get(8).getCodeManager()).isEqualTo(JESUS);
 		assertThat(resultsList.get(8).getRacePosition()).isEqualTo(27);
 		
-		assertThat(resultsList.get(1).getCodeManager()).isEqualTo("CARLO");
+		assertThat(resultsList.get(1).getCodeManager()).isEqualTo(CARLO);
 		assertThat(resultsList.get(1).getRacePosition()).isEqualTo(13);
 		
 	}
@@ -110,10 +118,10 @@ public class GproResultsApiRestControllerTest extends GproResultsApiRestControll
 		results.setIdSeason(Short.valueOf(idSeason));
 		results.setIdRace(Short.valueOf(idRace));
 		
-		ManagerResult resultJesus = new ManagerResult.ManagerResultBuilder("JESUS").racePosition(3).gridPosition(2).codeManager("JESUS").build();
-		ManagerResult resultNevza = new ManagerResult.ManagerResultBuilder("NEVZA").racePosition(29).gridPosition(7).build();
-		ManagerResult resultPablo = new ManagerResult.ManagerResultBuilder("PABLO").racePosition(14).build();
-		ManagerResult resultDiego = new ManagerResult("DIEGO", 4, 8);
+		ManagerResult resultJesus = new ManagerResult.ManagerResultBuilder(JESUS).racePosition(3).gridPosition(2).codeManager(JESUS).build();
+		ManagerResult resultNevza = new ManagerResult.ManagerResultBuilder(NEVZA).racePosition(29).gridPosition(7).build();
+		ManagerResult resultPablo = new ManagerResult.ManagerResultBuilder(PABLO).racePosition(14).build();
+		ManagerResult resultDiego = new ManagerResult(DIEGO, 4, 8);
 		
 		
 		results.setResults(Arrays.asList(resultJesus, resultNevza, resultPablo, resultDiego));
@@ -136,7 +144,7 @@ public class GproResultsApiRestControllerTest extends GproResultsApiRestControll
 				.andReturn();
 		
 		int status = mvcResult.getResponse().getStatus();
-		assertThat(status).isEqualTo(200);
+		assertThat(status).isEqualTo(HttpStatus.OK.value());
 		
 		content = mvcResult.getResponse().getContentAsString();
 		List<ManagerResult> resultsList = mapFromJsonReference(content, new TypeReference<List<ManagerResult>>() {});
@@ -149,11 +157,11 @@ public class GproResultsApiRestControllerTest extends GproResultsApiRestControll
 		assertThat(resultsList.size()).isPositive();
 		
 		//Comprobamos ciertos datos
-		assertThat(resultsList.get(5).getCodeManager()).isEqualTo("JESUS");
+		assertThat(resultsList.get(5).getCodeManager()).isEqualTo(JESUS);
 		assertThat(resultsList.get(5).getRacePosition()).isEqualTo(3);
 		assertThat(resultsList.get(5).getGridPosition()).isEqualTo(2);
 		
-		assertThat(resultsList.get(3).getCodeManager()).isEqualTo("PABLO");
+		assertThat(resultsList.get(3).getCodeManager()).isEqualTo(PABLO);
 		assertThat(resultsList.get(3).getGridPosition()).isNull();
 	}
 	
@@ -165,15 +173,146 @@ public class GproResultsApiRestControllerTest extends GproResultsApiRestControll
 	@Test
 	public void updateManagerPosition() throws Exception {
 		String idSeason = "80";
-		String codeManager = "MIKKO";
+		String codeManager = MIKKO;
 		
 		String uri = "/managers/update-position/" + idSeason + "/" + codeManager;
 		
-		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri).param("position", "39")).andReturn();
+		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri).param("position", "14")).andReturn();
 		
 		//Devuelve OK
 		int status = mvcResult.getResponse().getStatus();
-		assertThat(status).isEqualTo(200);
+		assertThat(status).isEqualTo(HttpStatus.OK.value());
+	}
+	
+	/**
+	 * Update All results.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void updateAllResults() throws Exception {
+		String idSeason = "52";
+		String idRace = "1";
+		
+		List<ManagerResults> allResults = new ArrayList<ManagerResults>();
+		
+		
+		ManagerResults results = new ManagerResults();
+		results.setIdSeason(Short.valueOf(idSeason));
+		results.setIdRace(Short.valueOf(idRace));
+		
+		ManagerResult resultJesus = new ManagerResult.ManagerResultBuilder(JESUS).racePosition(3).gridPosition(2).codeManager(JESUS).build();
+		ManagerResult resultNevza = new ManagerResult.ManagerResultBuilder(NEVZA).racePosition(29).gridPosition(7).build();
+		ManagerResult resultPablo = new ManagerResult.ManagerResultBuilder(PABLO).racePosition(14).build();
+		ManagerResult resultDiego = new ManagerResult(DIEGO, 4, 8);
+		
+		results.setResults(Arrays.asList(resultJesus, resultNevza, resultPablo, resultDiego));
+		
+		allResults.add(results);
+		
+		idSeason = "52";
+		idRace = "2";
+		
+		results = new ManagerResults();
+		results.setIdSeason(Short.valueOf(idSeason));
+		results.setIdRace(Short.valueOf(idRace));
+		
+		resultJesus = new ManagerResult.ManagerResultBuilder(JESUS).racePosition(1).gridPosition(2).codeManager(JESUS).build();
+		resultNevza = new ManagerResult.ManagerResultBuilder(NEVZA).racePosition(15).gridPosition(27).build();
+		resultPablo = new ManagerResult.ManagerResultBuilder(MIKKO).racePosition(13).gridPosition(3).build();
+		
+		results.setResults(Arrays.asList(resultJesus, resultNevza, resultPablo));
+		
+		allResults.add(results);
+		
+		logger.debug(allResults.toString());
+		
+		String content = mapToJson(allResults);
+		
+		logger.debug(content);
+		
+		String uri = "/managers/results-all";
+		
+		//Se graba ok
+		mvc.perform(MockMvcRequestBuilders.put(uri).contentType(MediaType.APPLICATION_JSON_VALUE).content(content))
+				.andExpect(status().isOk());
+		
+		//Ahora recuperamos y vemos si todo es una verdad absoluta
+		idRace = "1";
+		uri = "/managers/results/" + idSeason + "/" + idRace;
+		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON_VALUE))
+				.andReturn();
+		
+		int status = mvcResult.getResponse().getStatus();
+		assertThat(status).isEqualTo(HttpStatus.OK.value());
+		
+		content = mvcResult.getResponse().getContentAsString();
+		List<ManagerResult> resultsList = mapFromJsonReference(content, new TypeReference<List<ManagerResult>>() {});
+		
+		assertThat(resultsList).isNotNull();
+		
+		logger.debug(resultsList.toString());
+		
+		//Hay datos
+		assertThat(resultsList.size()).isPositive();
+		
+		//Comprobamos ciertos datos
+		Iterator<ManagerResult> iterator = resultsList.iterator();
+		while (iterator.hasNext()) {
+			ManagerResult theResult = iterator.next();
+			if (theResult.getCodeManager().equals(JESUS)) {
+				assertThat(theResult.getCodeManager()).isEqualTo(JESUS);
+				assertThat(theResult.getRacePosition()).isEqualTo(3);
+				assertThat(theResult.getGridPosition()).isEqualTo(2);				
+			} else if (theResult.getCodeManager().equals(PABLO)) {
+				assertThat(theResult.getCodeManager()).isEqualTo(PABLO);
+				assertThat(theResult.getGridPosition()).isNull();
+			} else if (theResult.getCodeManager().equals(NEVZA)) {
+				assertThat(theResult.getCodeManager()).isEqualTo(NEVZA);
+				assertThat(theResult.getRacePosition()).isEqualTo(29);
+				assertThat(theResult.getGridPosition()).isEqualTo(7);
+			}
+
+		}
+		
+		//Segunda carrera
+		idRace = "2";
+		uri = "/managers/results/" + idSeason + "/" + idRace;
+		mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON_VALUE))
+				.andReturn();
+		
+		status = mvcResult.getResponse().getStatus();
+		assertThat(status).isEqualTo(HttpStatus.OK.value());
+		
+		content = mvcResult.getResponse().getContentAsString();
+		resultsList = mapFromJsonReference(content, new TypeReference<List<ManagerResult>>() {});
+		
+		assertThat(resultsList).isNotNull();
+		
+		logger.debug(resultsList.toString());
+		
+		//Hay datos
+		assertThat(resultsList.size()).isPositive();
+		
+		iterator = resultsList.iterator();
+		while (iterator.hasNext()) {
+			ManagerResult theResult = iterator.next();
+			if (theResult.getCodeManager().equals(JESUS)) {
+				assertThat(theResult.getCodeManager()).isEqualTo(JESUS);
+				assertThat(theResult.getRacePosition()).isEqualTo(1);
+				assertThat(theResult.getGridPosition()).isEqualTo(2);				
+			} else if (theResult.getCodeManager().equals(NEVZA)) {
+				assertThat(theResult.getCodeManager()).isEqualTo(NEVZA);
+				assertThat(theResult.getRacePosition()).isEqualTo(15);
+				assertThat(theResult.getGridPosition()).isEqualTo(27);				
+			} else if (theResult.getCodeManager().equals(MIKKO)) {
+				assertThat(theResult.getCodeManager()).isEqualTo(MIKKO);
+				assertThat(theResult.getRacePosition()).isEqualTo(13);
+				assertThat(theResult.getGridPosition()).isEqualTo(3);				
+			} 			
+				
+		}
+		
 	}
 
 }

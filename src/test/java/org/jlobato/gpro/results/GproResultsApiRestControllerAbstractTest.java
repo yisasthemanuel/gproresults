@@ -26,6 +26,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @WebAppConfiguration
 public abstract class GproResultsApiRestControllerAbstractTest {
 
+	protected static final String JESUS = "JESUS";
+
+	protected static final String MIKKO = "MIKKO";
+
+	protected static final String DIEGO = "DIEGO";
+
+	protected static final String PABLO = "PABLO";
+
+	protected static final String CARLO = "CARLO";
+
+	protected static final String NEVZA = "NEVZA";
+
 	/** The mvc. */
 	protected MockMvc mvc;
 

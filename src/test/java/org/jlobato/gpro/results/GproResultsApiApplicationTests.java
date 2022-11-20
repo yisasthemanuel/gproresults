@@ -61,7 +61,7 @@ public class GproResultsApiApplicationTests {
 		//Entonces
 		List<Manager> resultados = managerService.findAll();
 		
-		assertThat(resultados.size()).isEqualTo(18);
+		assertThat(resultados.size()).isEqualTo(23);
 	}
 
 }

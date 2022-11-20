@@ -1,5 +1,6 @@
 package org.jlobato.gpro.results.rest;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.jlobato.gpro.results.service.IManagerService;
@@ -58,6 +59,21 @@ public class ResultsController {
 		//Preconditions.checkNotNull(resource);
 		//RestPreconditions.checkNotNull(service.getById(resource.getId()));
 		service.putResults(resource);
+	}
+	
+	/**
+	 * Update.
+	 *
+	 * @param resource the resource
+	 */
+	@PutMapping(value = "/results-all")
+	@ResponseStatus(HttpStatus.OK)
+	public void updateAll(@RequestBody List<ManagerResults> resource) {
+		Iterator<ManagerResults> results = resource.iterator();
+		while (results.hasNext()) {
+			ManagerResults theSingleResults = results.next();
+			service.putResults(theSingleResults);
+		}
 	}
 	
 	/**
