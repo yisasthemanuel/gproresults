@@ -74,12 +74,17 @@ $ ./mvnw clean package
 docker run -d -e EUREKA_URI=http://host.docker.internal:8761/eureka -e CONFIG_SERVER=http://host.docker.internal:8888 -e SPRING_PROFILES_ACTIVE=development -p 9080:8080 --name yisas-gproresults yisasthemanuel/gproresultsapi
 ```
 
+## Changelog [ES]
+
+* **1.3.6 (08/12/2022)** - Se añade un método para obtener todos los resultados de los managers del equipo por defecto en una temporada y la propiedad de la temporada y la carrera en los datos de los resultados de los managers
+
+
 ## TO DOs
 
-* Uso de Lombok
-* Hacer uso de Spring Cloud Config para la configuración de las propiedades del microservicio
+* Uso de Lombok en los beans del paquete xbean.results
 * Tests en H2
 * Pasar la configuración a .yaml
+* Incluir la gestión de equipos
 
 
 ## Referencias [EN]

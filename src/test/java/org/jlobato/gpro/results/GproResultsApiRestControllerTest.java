@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.jlobato.gpro.xbean.Manager;
 import org.jlobato.gpro.xbean.results.ManagerResult;
@@ -25,6 +26,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GproResultsApiRestControllerTest.
  */
@@ -104,6 +106,66 @@ public class GproResultsApiRestControllerTest extends GproResultsApiRestControll
 	}
 	
 	/**
+	 * Gets the results.
+	 *
+	 * @return the results
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void getSeasonResults() throws Exception {
+		String uri = "/managers/results/74";
+		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON_VALUE))
+				.andReturn();
+
+		int status = mvcResult.getResponse().getStatus();
+		assertThat(status).isEqualTo(HttpStatus.OK.value());
+		
+		String content = mvcResult.getResponse().getContentAsString();
+		logger.debug("getSeasonResults.json: {}", content);
+		List<ManagerResult> resultsList = mapFromJsonReference(content, new TypeReference<List<ManagerResult>>() {});
+		
+		assertThat(resultsList).isNotNull();
+		
+		assertThat(resultsList.size()).isGreaterThan(10);
+		
+		List<ManagerResult> yisasResults = resultsList.stream().filter(result -> result.getCodeManager().equals("JESUS")).collect(Collectors.toList());
+
+		assertThat(yisasResults.size()).isEqualTo(17);
+		
+		//Carrera 12 de Yisas
+		checkResult(yisasResults, JESUS, 12, 27, null);
+		
+		//Carrera 14 de Yisas
+		checkResult(yisasResults, JESUS, 14, 6, null);
+	}
+
+	/**
+	 * Check result.
+	 *
+	 * @param yisasResults the yisas results
+	 * @param codeManager the code manager
+	 * @param idRace the id race
+	 * @param racePosition the race position
+	 * @param gridPosition the grid position
+	 */
+	private void checkResult(List<ManagerResult> yisasResults, String codeManager, Integer idRace, Integer racePosition, Integer gridPosition) {
+		List<ManagerResult> yisasRace;
+		yisasRace = yisasResults.stream().filter(race -> race.getIdRace().equals(idRace)).collect(Collectors.toList());
+		
+		assertThat(yisasRace).hasSize(1);
+		
+		assertThat(yisasRace.get(0).getCodeManager()).isEqualTo(codeManager);
+		assertThat(yisasRace.get(0).getRacePosition()).isEqualTo(racePosition);
+		
+		if (gridPosition == null) {
+			assertThat(yisasRace.get(0).getGridPosition()).isNull();
+		}
+		else {
+			assertThat(yisasRace.get(0).getGridPosition()).isEqualTo(gridPosition);
+		}
+	}
+	
+	/**
 	 * Update results.
 	 *
 	 * @throws Exception the exception
@@ -119,8 +181,8 @@ public class GproResultsApiRestControllerTest extends GproResultsApiRestControll
 		results.setIdRace(Short.valueOf(idRace));
 		
 		ManagerResult resultJesus = new ManagerResult.ManagerResultBuilder(JESUS).racePosition(3).gridPosition(2).codeManager(JESUS).build();
-		ManagerResult resultNevza = new ManagerResult.ManagerResultBuilder(NEVZA).racePosition(29).gridPosition(7).build();
-		ManagerResult resultPablo = new ManagerResult.ManagerResultBuilder(PABLO).racePosition(14).build();
+		ManagerResult resultNevza = new ManagerResult.ManagerResultBuilder(NEVZA).racePosition(29).gridPosition(7).idSeason(Integer.valueOf(idSeason)).idRace(Integer.valueOf(idRace)).build();
+		ManagerResult resultPablo = new ManagerResult.ManagerResultBuilder(PABLO).racePosition(14).idSeason(Integer.valueOf(idSeason)).idRace(Integer.valueOf(idRace)).build();
 		ManagerResult resultDiego = new ManagerResult(DIEGO, 4, 8);
 		
 		
@@ -201,7 +263,7 @@ public class GproResultsApiRestControllerTest extends GproResultsApiRestControll
 		results.setIdSeason(Short.valueOf(idSeason));
 		results.setIdRace(Short.valueOf(idRace));
 		
-		ManagerResult resultJesus = new ManagerResult.ManagerResultBuilder(JESUS).racePosition(3).gridPosition(2).codeManager(JESUS).build();
+		ManagerResult resultJesus = new ManagerResult.ManagerResultBuilder(JESUS).racePosition(3).gridPosition(2).codeManager(JESUS).idSeason(Integer.valueOf(idSeason)).idRace(Integer.valueOf(idRace)).build();
 		ManagerResult resultNevza = new ManagerResult.ManagerResultBuilder(NEVZA).racePosition(29).gridPosition(7).build();
 		ManagerResult resultPablo = new ManagerResult.ManagerResultBuilder(PABLO).racePosition(14).build();
 		ManagerResult resultDiego = new ManagerResult(DIEGO, 4, 8);

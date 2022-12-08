@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ResultsController.
  */
@@ -94,9 +95,27 @@ public class ResultsController {
 	}
 	
 	/**
+	 * Gets the results.
+	 *
+	 * @param season the season
+	 * @return the results
+	 */
+	@GetMapping(value = "results/{season}")
+	@ResponseBody
+	public List<ManagerResult> getResults(@PathVariable String season) {
+		//TODO Utilizar precondiciones Guava. Luego cambiar a precondiciones de la 1.8
+		//TODO Utilizar RestPreconditions (baeldung)
+		//Preconditions.checkNotNull(resource);
+		//RestPreconditions.checkNotNull(service.getById(resource.getId()));
+		return service.getSeasonResults(season);
+	}
+	
+	/**
 	 * Update.
 	 *
-	 * @param resource the resource
+	 * @param season the season
+	 * @param codeManager the code manager
+	 * @param position the position
 	 */
 	@PutMapping(value = "/update-position/{season}/{codeManager}")
 	@ResponseStatus(HttpStatus.OK)

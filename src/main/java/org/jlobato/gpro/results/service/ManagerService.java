@@ -6,15 +6,18 @@ import java.util.List;
 
 import org.jlobato.gpro.dao.mybatis.facade.FachadaManager;
 import org.jlobato.gpro.dao.mybatis.facade.FachadaManagerResult;
+import org.jlobato.gpro.dao.mybatis.facade.FachadaSeason;
 import org.jlobato.gpro.dao.mybatis.facade.FachadaTeam;
 import org.jlobato.gpro.dao.mybatis.model.ManagerHistory;
 import org.jlobato.gpro.dao.mybatis.model.Race;
+import org.jlobato.gpro.dao.mybatis.model.Season;
 import org.jlobato.gpro.xbean.Manager;
 import org.jlobato.gpro.xbean.results.ManagerResult;
 import org.jlobato.gpro.xbean.results.ManagerResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+// TODO: Auto-generated Javadoc
 /**
  * Servicios relacionados con los managers.
  *
@@ -34,6 +37,10 @@ public class ManagerService implements IManagerService {
 	/** The team repository. */
 	@Autowired
 	private FachadaTeam teamRepository;
+	
+	/** The season repository. */
+	@Autowired
+	private FachadaSeason seasonRepository;
 
 	/**
 	 * Devuelve la lista de todos los managers de la aplicación.
@@ -86,12 +93,17 @@ public class ManagerService implements IManagerService {
 	@Override
 	public List<ManagerResult> getResults(String idSeason, String idRace) {
 		List<ManagerResult> result = new ArrayList<>();
+		
 		Race race = new Race();
 		race.setIdSeason(new Short(idSeason));
 		race.setIdRace(new Short(idRace));
-		List<org.jlobato.gpro.dao.mybatis.model.Manager> lista = managerRepository.getManagers(teamRepository.getDefaultTeam(), race);
 		
-		lista.forEach(manager -> {
+		Integer iSeason = Integer.valueOf(idSeason);
+		Integer iRace = Integer.valueOf(idRace);
+		
+		List<org.jlobato.gpro.dao.mybatis.model.Manager> managers = managerRepository.getManagers(teamRepository.getDefaultTeam(), race);
+		
+		managers.forEach(manager -> {
 			org.jlobato.gpro.dao.mybatis.model.ManagerResult resultado = resultsRepository.findManagerResult(manager, race);
 			ManagerResult.ManagerResultBuilder builder = new ManagerResult.ManagerResultBuilder(manager.getCodeManager());
 			if (resultado != null) {
@@ -101,6 +113,8 @@ public class ManagerService implements IManagerService {
 				if (resultado.getRacePosition() != null ) {
 					builder.racePosition(Integer.valueOf(resultado.getRacePosition()));
 				}
+				builder.idSeason(iSeason);
+				builder.idRace(iRace);
 			}
 			result.add(builder.build());
 		});
@@ -108,6 +122,25 @@ public class ManagerService implements IManagerService {
 		return result;
 	}
 
+	/**
+	 * Gets the results.
+	 *
+	 * @param idSeason the id season
+	 * @return the results
+	 */
+	@Override
+	public List<ManagerResult> getSeasonResults(String idSeason) {
+		List<ManagerResult> result = new ArrayList<>();
+		
+		Season season = seasonRepository.getSeason(new Short(idSeason));
+		List<Race> races = seasonRepository.getRaces(season);
+		races.forEach(race -> {
+			result.addAll(this.getResults(idSeason, race.getIdRace().toString()));
+		});
+		
+		return result;
+	}
+	
 
 	/**
 	 * Update manager position.

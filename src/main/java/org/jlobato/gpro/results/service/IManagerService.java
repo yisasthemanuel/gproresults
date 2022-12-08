@@ -6,6 +6,7 @@ import org.jlobato.gpro.xbean.Manager;
 import org.jlobato.gpro.xbean.results.ManagerResult;
 import org.jlobato.gpro.xbean.results.ManagerResults;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface IManagerService.
  *
@@ -35,6 +36,14 @@ public interface IManagerService {
 	 * @return the results
 	 */
 	public List<ManagerResult> getResults(String idSeason, String idRace);
+	
+	/**
+	 * Gets the results.
+	 *
+	 * @param idSeason the id season
+	 * @return the results
+	 */
+	public List<ManagerResult> getSeasonResults(String idSeason);
 	
 	/**
 	 * Update manager position.
