@@ -1,0 +1,8 @@
+# EUREKA
+# Discovery server. Localización del servicio de Eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    prefer-ip-address: true

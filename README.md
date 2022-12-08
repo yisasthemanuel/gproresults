@@ -71,7 +71,7 @@ $ ./mvnw clean package
 ### Ejecución de la imagen
 
 ```shell
-docker run -d -e EUREKA_URI=http://host.docker.internal:8761/eureka -e CONFIG_SERVER=http://host.docker.internal:8888 -e SPRING_PROFILES_ACTIVE=development -p 9080:8080 --name yisas-gproresults yisasthemanuel/gproresultsapi
+docker run -d -e EUREKA_URI=http://host.docker.internal:8761/eureka -e CONFIG_SERVER=http://host.docker.internal:8888 -e SPRING_PROFILES_ACTIVE=development -p 9080:8080 --name yisas-gproresults yisasthemanuel/gproresultsapi:<version>
 ```
 
 ## Changelog [ES]
@@ -83,7 +83,6 @@ docker run -d -e EUREKA_URI=http://host.docker.internal:8761/eureka -e CONFIG_SE
 
 * Uso de Lombok en los beans del paquete xbean.results
 * Tests en H2
-* Pasar la configuración a .yaml
 * Incluir la gestión de equipos
 
 

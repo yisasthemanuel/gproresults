@@ -1,0 +1,14 @@
+spring:
+  application:
+# Nombre del microservicio
+    name: yisas-gpro-categories-api
+  cloud:
+    config:   
+# Configuración Cloud Config
+      enabled: ${CONFIG_ENABLED:true}
+      uri: ${CONFIG_SERVER:http://localhost:8888}
+      profile: ${SPRING_PROFILES_ACTIVE:local}
+      username: ${CONFIG_SERVER_USER:root}
+      password: ${CONFIG_SERVER_PASSWORD:s3cr3t}
+      label: ${CONFIG_SERVER_LABEL:master}
+      fail-fast: ${CONFIG_FAIL_FAST:false}
