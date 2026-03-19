@@ -17,7 +17,6 @@ import org.jlobato.gpro.xbean.results.ManagerResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-// TODO: Auto-generated Javadoc
 /**
  * Servicios relacionados con los managers.
  *
@@ -95,8 +94,8 @@ public class ManagerService implements IManagerService {
 		List<ManagerResult> result = new ArrayList<>();
 		
 		Race race = new Race();
-		race.setIdSeason(new Short(idSeason));
-		race.setIdRace(new Short(idRace));
+		race.setIdSeason(Short.valueOf(idSeason));
+		race.setIdRace(Short.valueOf(idRace));
 		
 		Integer iSeason = Integer.valueOf(idSeason);
 		Integer iRace = Integer.valueOf(idRace);
@@ -132,7 +131,7 @@ public class ManagerService implements IManagerService {
 	public List<ManagerResult> getSeasonResults(String idSeason) {
 		List<ManagerResult> result = new ArrayList<>();
 		
-		Season season = seasonRepository.getSeason(new Short(idSeason));
+		Season season = seasonRepository.getSeason(Short.valueOf(idSeason));
 		List<Race> races = seasonRepository.getRaces(season);
 		races.forEach(race -> {
 			result.addAll(this.getResults(idSeason, race.getIdRace().toString()));

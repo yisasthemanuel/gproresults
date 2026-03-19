@@ -20,13 +20,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-// TODO: Auto-generated Javadoc
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * The Class ResultsController.
  */
 @RestController
 @RequestMapping("/managers")
 @CrossOrigin
+@Slf4j
 public class ResultsController {
 
 	/**

@@ -1,3 +1,30 @@
+spring:
+  application:
+    name: yisas-gpro-results-api
+  # CLOUD CONFIG
+  config:
+    import: "configserver:"
+  cloud:
+    config:   
+# Configuración Cloud Config
+      enabled: ${CONFIG_ENABLED:true}
+      uri: ${CONFIG_SERVER:http://localhost:8888}
+      profile: ${SPRING_PROFILES_ACTIVE:local}
+      username: ${CONFIG_SERVER_USER:root}
+      password: ${CONFIG_SERVER_PASSWORD:s3cr3t}
+      label: ${CONFIG_SERVER_LABEL:master}
+      fail-fast: ${CONFIG_FAIL_FAST:false}
+#aplicacion.driverClassName=net.bull.javamelody.JdbcDriver
+#aplicacion.url=jdbc:postgresql://localhost:5454/gprodata?driver=org.postgresql.Driver
+#aplicacion.driverClassName=org.postgresql.Driver
+#aplicacion.url=jdbc:postgresql://localhost:5454/gprodata
+#aplicacion.username=gprodata
+#aplicacion.password=gprodata
+#  datasource:
+#    url: jdbc:postgresql://localhost:5454/gprodata?driver=org.postgresql.Driver
+#    username: gprodata
+#    password: gprodata
+#    driver-class-name: org.postgresql.Driver
 # EUREKA
 # Discovery server. Localización del servicio de Eureka
 eureka:
@@ -20,4 +47,12 @@ management:
     metrics:
       enabled: true
     prometheus:
-      enabled: true 
+      enabled: true
+
+mybatis:
+  type-aliases-package: org.jlobato.gpro.dao.mybatis.model
+  mapper-locations: classpath*:org/jlobato/gpro/dao/mybatis/sqlmap/**/*.xml
+
+#javamelody
+javamelody:
+  enabled: true

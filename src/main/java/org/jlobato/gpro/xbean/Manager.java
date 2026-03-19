@@ -10,29 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * The Class Manager.
  */
-
-/**
- * To string.
- *
- * @return the java.lang. string
- */
 @ToString
-
-/** The Constant log. */
 @Slf4j
-
-/**
- * Gets the name manager.
- *
- * @return the name manager
- */
 @Getter
-
-/**
- * Sets the name manager.
- *
- * @param nameManager the new name manager
- */
 @Setter
 public class Manager implements Serializable {
 	

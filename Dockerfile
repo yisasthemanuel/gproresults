@@ -1,18 +1,17 @@
-FROM adoptopenjdk/openjdk11-openj9:alpine-jre
+FROM eclipse-temurin:21-jre-jammy
 
 LABEL maintainer="yisasthemanuel@gmail.com"
 
-RUN apk --update add \
+# Instalar fuentes necesarias
+RUN apt-get update && apt-get install -y \
     fontconfig \
-    ttf-dejavu 
+    fonts-dejavu-core \
+    && rm -rf /var/lib/apt/lists/*
 
-#Variables de entorno
-ENV EUREKA_URI http://localhost:8761/eureka
+ENV EUREKA_URI=http://localhost:8761/eureka
 
-ARG JAR_FILE
-
-ADD ${JAR_FILE} /app.jar 
+COPY target/*.jar /app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+ENTRYPOINT ["java","-XX:+UseContainerSupport","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]

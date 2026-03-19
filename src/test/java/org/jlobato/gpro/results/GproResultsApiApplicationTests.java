@@ -7,17 +7,14 @@ import java.util.List;
 import org.jlobato.gpro.results.service.IManagerService;
 import org.jlobato.gpro.xbean.Manager;
 import org.jlobato.gpro.xbean.results.ManagerResult;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 
 /**
  * The Class GproResultsApiApplicationTests.
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class GproResultsApiApplicationTests {
 	
@@ -61,7 +58,7 @@ public class GproResultsApiApplicationTests {
 		//Entonces
 		List<Manager> resultados = managerService.findAll();
 		
-		assertThat(resultados.size()).isEqualTo(23);
+		assertThat(resultados.size()).isEqualTo(27);
 	}
 
 }

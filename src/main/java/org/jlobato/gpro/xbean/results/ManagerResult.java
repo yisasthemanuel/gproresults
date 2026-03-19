@@ -2,7 +2,6 @@ package org.jlobato.gpro.xbean.results;
 
 import java.io.Serializable;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ManagerResult.
  */

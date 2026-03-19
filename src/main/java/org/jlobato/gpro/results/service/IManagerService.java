@@ -6,7 +6,6 @@ import org.jlobato.gpro.xbean.Manager;
 import org.jlobato.gpro.xbean.results.ManagerResult;
 import org.jlobato.gpro.xbean.results.ManagerResults;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface IManagerService.
  *

@@ -2,11 +2,9 @@ package org.jlobato.gpro.results;
 
 import java.io.IOException;
 
-import org.junit.Before;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -21,7 +19,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * The Class GproResultsApiRestControllerAbstractTest.
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
 @WebAppConfiguration
 public abstract class GproResultsApiRestControllerAbstractTest {
@@ -48,7 +45,7 @@ public abstract class GproResultsApiRestControllerAbstractTest {
 	/**
 	 * Sets the up.
 	 */
-	@Before
+	@BeforeEach
 	protected void setUp() {
 		mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
